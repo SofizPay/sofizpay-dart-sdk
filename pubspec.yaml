@@ -11,7 +11,9 @@ environment:
 
 dependencies:
   http: ^1.1.0
-  stellar_flutter_sdk: ^2.0.0
+  # stellar_flutter_sdk: ^2.0.0
+  crypto: ^3.0.3
+  ed25519_edwards: ^0.3.2
 
 dev_dependencies:
   lints: ^3.0.0
