@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="https://github.com/kenandarabeh/sofizpay-sdk/blob/main/assets/sofizpay-logo.png?raw=true" alt="SofizPay Logo" width="200" />
+  <img src="https://github.com/SofizPay/sofizpay-dart-sdk/blob/main/assets/sofizpay-logo.png?raw=true" alt="SofizPay Logo" width="200" />
 </div>
 
 # SofizPay SDK Dart
@@ -17,7 +17,7 @@ Add this to your package's `pubspec.yaml` file:
 
 ```yaml
 dependencies:
-  sofizpay_sdk_dart: ^1.1.1
+  sofizpay_sdk_dart: ^1.2.0
 ```
 
 Then run:

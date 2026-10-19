@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.2.0 - 2026-10-19
+
+### Added
+- 🎉 Updated official repository links to SofizPay organization (`SofizPay/sofizpay-dart-sdk`).
+- ✅ Stellar utilities and transaction builder for payment processing.
+- ✅ CIB and Edahabiya banking deposit integration.
+- ✅ Support for latest Dart 3.x environment.
+
 ## 1.0.0 - 2025-01-16
 
 ### Added
