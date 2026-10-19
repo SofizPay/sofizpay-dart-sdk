@@ -41,7 +41,7 @@ class SofizPayTransactionResponse {
 }
 
 class SofizPaySDK {
-  static const String version = '1.1.11';
+  static const String version = '1.2.0';
   final bool isSandbox;
 
   static const String sofizpayPublicKeyPem = '''-----BEGIN PUBLIC KEY-----

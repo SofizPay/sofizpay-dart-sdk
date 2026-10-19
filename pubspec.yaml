@@ -1,4 +1,4 @@
-name: sofizpay_sdk_dart
+name: sofizpay_dart_sdk
 description: A powerful Dart SDK for SofizPay Payments with real-time transaction monitoring and comprehensive payment management.
 version: 1.2.0
 homepage: https://github.com/SofizPay/sofizpay-dart-sdk

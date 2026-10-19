@@ -6,7 +6,7 @@
 
 **The official Dart SDK for secure digital payments and transactions.**
 
-[![pub package](https://img.shields.io/pub/v/sofizpay_sdk_dart.svg)](https://pub.dev/packages/sofizpay_sdk_dart)
+[![pub package](https://img.shields.io/pub/v/sofizpay_dart_sdk.svg)](https://pub.dev/packages/sofizpay_dart_sdk)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 ## Quick Start
@@ -17,7 +17,7 @@ Add this to your package's `pubspec.yaml` file:
 
 ```yaml
 dependencies:
-  sofizpay_sdk_dart: ^1.2.0
+  sofizpay_dart_sdk: ^1.2.0
 ```
 
 Then run:
@@ -29,7 +29,7 @@ dart pub get
 ### Basic Usage
 
 ```dart
-import 'package:sofizpay_sdk_dart/sofizpay_sdk_dart.dart';
+import 'package:sofizpay_dart_sdk/sofizpay_dart_sdk.dart';
 
 void main() async {
   final sdk = SofizPaySDK();
@@ -62,7 +62,7 @@ void main() async {
 
 ```dart
 import 'package:flutter/material.dart';
-import 'package:sofizpay_sdk_dart/sofizpay_sdk_dart.dart';
+import 'package:sofizpay_dart_sdk/sofizpay_dart_sdk.dart';
 
 class WalletPage extends StatefulWidget {
   @override
@@ -152,7 +152,7 @@ class _WalletPageState extends State<WalletPage> {
 ### Dart Console Application
 
 ```dart
-import 'package:sofizpay_sdk_dart/sofizpay_sdk_dart.dart';
+import 'package:sofizpay_dart_sdk/sofizpay_dart_sdk.dart';
 
 void main() async {
   final sdk = SofizPaySDK();
@@ -225,7 +225,7 @@ class SofizPayTransactionResponse {
 ### Advanced Usage Examples
 
 ```dart
-import 'package:sofizpay_sdk_dart/sofizpay_sdk_dart.dart';
+import 'package:sofizpay_dart_sdk/sofizpay_dart_sdk.dart';
 
 void main() async {
   final sdk = SofizPaySDK();
@@ -472,14 +472,14 @@ class WalletManager {
 dependencies:
   flutter:
     sdk: flutter
-  sofizpay_sdk_dart: ^1.0.9
+  sofizpay_dart_sdk: ^1.0.9
   # Other dependencies...
 ```
 
 ### Using in Flutter Widgets
 ```dart
 import 'package:flutter/material.dart';
-import 'package:sofizpay_sdk_dart/sofizpay_sdk_dart.dart';
+import 'package:sofizpay_dart_sdk/sofizpay_dart_sdk.dart';
 
 class PaymentButton extends StatelessWidget {
   final SofizPaySDK sdk = SofizPaySDK();
@@ -575,7 +575,7 @@ class MobileWallet extends StatefulWidget {
 Built for backend services requiring payment processing:
 ```dart
 import 'dart:io';
-import 'package:sofizpay_sdk_dart/sofizpay_sdk_dart.dart';
+import 'package:sofizpay_dart_sdk/sofizpay_dart_sdk.dart';
 
 void main() async {
   final server = await HttpServer.bind('localhost', 8080);
