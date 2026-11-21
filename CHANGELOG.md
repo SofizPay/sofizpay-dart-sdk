@@ -1,5 +1,15 @@
 # Changelog
 
+## 1.3.0 - 2026-11-21
+
+### Added
+- 🔐 `verifyWebhookPayload(payload, {callbackUrl})`: verifies the CIB webhook signature **and** that
+  `payment_status`, `amount` and `order_number` match the signed `message`. Use it instead of
+  `verifyWebhookSignature` before trusting those fields.
+
+### Docs
+- New "Verifying CIB Webhooks" section in the README.
+
 ## 1.2.0 - 2026-10-19
 
 ### Added

@@ -41,7 +41,7 @@ class SofizPayTransactionResponse {
 }
 
 class SofizPaySDK {
-  static const String version = '1.2.0';
+  static const String version = '1.3.0';
   final bool isSandbox;
 
   static const String sofizpayPublicKeyPem = '''-----BEGIN PUBLIC KEY-----
@@ -548,6 +548,38 @@ THV3WRcKrP2krz3ruRGF6yP6PVHEuPc0YDLsYjV5uhfs7JtIksNKhRRAQ16bAsj/
 
   bool verifyWebhookSignature(Map<String, dynamic> webhookPayload) {
     return verifySignature(webhookPayload);
+  }
+
+  /// Verifies a CIB webhook end to end: the RSA signature over `message` AND that the
+  /// unsigned top-level fields (`payment_status`, `amount`, `order_number`) match the
+  /// signed message. Use this before trusting any of those fields.
+  ///
+  /// The signed message is `callbackUrl + payment_status + amount + order_number`.
+  /// Pass [callbackUrl] (your webhook URL as registered with SofizPay) for the strictest check.
+  bool verifyWebhookPayload(Map<String, dynamic> webhookPayload, {String? callbackUrl}) {
+    final message = webhookPayload['message'];
+    if (message is! String || !verifyWebhookSignature(webhookPayload)) {
+      return false;
+    }
+
+    String? toPart(dynamic value) {
+      if (value is String) return value;
+      if (value is int) return value.toString();
+      return null;
+    }
+
+    final status = toPart(webhookPayload['payment_status']);
+    final amount = toPart(webhookPayload['amount']);
+    final orderNumber = toPart(webhookPayload['order_number']);
+    if (status == null || status.isEmpty || amount == null || amount.isEmpty || orderNumber == null || orderNumber.isEmpty) {
+      return false;
+    }
+
+    final signedFields = status + amount + orderNumber;
+    if (callbackUrl != null && callbackUrl.isNotEmpty) {
+      return message == callbackUrl + signedFields;
+    }
+    return message.length > signedFields.length && message.endsWith(signedFields);
   }
 
   static Map<String, BigInt>? _parseRsaPublicKey(String pem) {
