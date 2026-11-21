@@ -1,5 +1,15 @@
 # Changelog
 
+## 1.3.1 - 2026-11-21
+
+### Fixed
+- `verifyWebhookPayload` now checks the exact signed format `"cib" + payment_status + amount + order_number`
+  (confirmed with real sandbox and production webhooks). The `callbackUrl` option is deprecated and ignored:
+  the callback URL is not part of the signed message, so passing it in 1.3.0 rejected genuine webhooks.
+
+### Docs
+- README: real `message` example and no `callbackUrl` recommendation.
+
 ## 1.3.0 - 2026-11-21
 
 ### Added

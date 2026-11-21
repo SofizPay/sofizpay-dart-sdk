@@ -17,7 +17,7 @@ Add this to your package's `pubspec.yaml` file:
 
 ```yaml
 dependencies:
-  sofizpay_dart_sdk: ^1.3.0
+  sofizpay_dart_sdk: ^1.3.1
 ```
 
 Then run:
@@ -300,17 +300,14 @@ if (bankResult['data'] != null) {
 
 ### Verifying CIB Webhooks (`verifyWebhookPayload`)
 
-The RSA signature covers only the `message` string (`callback_url + payment_status + amount + order_number`).
+The RSA signature covers only the `message` string (`"cib" + payment_status + amount + order_number`, e.g. `cibsuccess1500005965287001`).
 The top-level fields `payment_status`, `amount` and `order_number` are **not** signed by themselves, so
 `verifyWebhookSignature()` alone does not make them trustworthy. `verifyWebhookPayload()` checks the
 signature **and** that those fields match the signed `message`.
 
 ```dart
 // payload = jsonDecode(requestBody) as Map<String, dynamic>
-final ok = sdk.verifyWebhookPayload(
-  payload,
-  callbackUrl: 'https://yourstore.com/api/cib-webhook/', // optional, recommended
-);
+final ok = sdk.verifyWebhookPayload(payload);
 if (!ok) {
   // respond 400 and stop
 }
@@ -318,7 +315,6 @@ if (!ok) {
 // Also check amount equals the amount stored for that order, and process each order only once.
 ```
 
-`callbackUrl` must be the URL prefix exactly as it appears at the start of `message` in a real webhook (including any trailing `/`).
 
 ### Error Handling
 

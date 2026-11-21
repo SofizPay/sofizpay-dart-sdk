@@ -41,7 +41,7 @@ class SofizPayTransactionResponse {
 }
 
 class SofizPaySDK {
-  static const String version = '1.3.0';
+  static const String version = '1.3.1';
   final bool isSandbox;
 
   static const String sofizpayPublicKeyPem = '''-----BEGIN PUBLIC KEY-----
@@ -554,9 +554,13 @@ THV3WRcKrP2krz3ruRGF6yP6PVHEuPc0YDLsYjV5uhfs7JtIksNKhRRAQ16bAsj/
   /// unsigned top-level fields (`payment_status`, `amount`, `order_number`) match the
   /// signed message. Use this before trusting any of those fields.
   ///
-  /// The signed message is `callbackUrl + payment_status + amount + order_number`.
-  /// Pass [callbackUrl] (your webhook URL as registered with SofizPay) for the strictest check.
-  bool verifyWebhookPayload(Map<String, dynamic> webhookPayload, {String? callbackUrl}) {
+  /// The signed message is exactly `"cib" + payment_status + amount + order_number`
+  /// (e.g. `cibsuccess50004790895316`), verified against real sandbox and production webhooks.
+  ///
+  /// [callbackUrl] is deprecated and ignored: the callback URL is not part of the signed
+  /// message. It is accepted only so code written for 1.3.0 keeps compiling.
+  bool verifyWebhookPayload(Map<String, dynamic> webhookPayload,
+      {@Deprecated('Ignored: the callback URL is not part of the signed message') String? callbackUrl}) {
     final message = webhookPayload['message'];
     if (message is! String || !verifyWebhookSignature(webhookPayload)) {
       return false;
@@ -575,11 +579,7 @@ THV3WRcKrP2krz3ruRGF6yP6PVHEuPc0YDLsYjV5uhfs7JtIksNKhRRAQ16bAsj/
       return false;
     }
 
-    final signedFields = status + amount + orderNumber;
-    if (callbackUrl != null && callbackUrl.isNotEmpty) {
-      return message == callbackUrl + signedFields;
-    }
-    return message.length > signedFields.length && message.endsWith(signedFields);
+    return message == 'cib$status$amount$orderNumber';
   }
 
   static Map<String, BigInt>? _parseRsaPublicKey(String pem) {
